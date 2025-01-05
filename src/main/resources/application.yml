@@ -1,0 +1,61 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/movies-dashboard
+    session:
+      cookie:
+        max-age: 0
+        
+springdoc:
+  api-docs:
+    path: /v3/api-docs   # The path where OpenAPI docs are generated
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method  # Sort methods alphabetically
+    tagsSorter: alpha         # Sort tags alphabetically
+
+spring:
+  application:
+    name:  movies-dashboard
+  flyway:
+    baselineOnMigrate: true
+    validateOnMigrate: false
+    schemas : movd
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/movie_db?currentSchema=movd
+    username: movie
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: update
+    properties:
+        hibernate:
+            format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect  
+    generateDdl: true
+
+
+file:
+  upload-dir: ./upload/dir/
+  upload-tmp: ./upload/tmp
+
+
+security:
+    jwt:
+      secret-key: d5642639b856eeab6f7a1f096c2f38bbb3b9cbd75d9a46577fe87e6fa3fceb6d
+      expiration-time: 3600000
+    
+omdb:
+  api:
+    key: fad9f07e
